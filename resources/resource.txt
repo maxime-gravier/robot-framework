@@ -1,0 +1,52 @@
+*** Settings ***
+Library     Selenium2Library
+Library     BuiltIn
+
+*** Keywords ***
+Open Easylience Login Page
+    Open Browser                      http://192.168.0.41    firefox    None    http://192.168.0.11:4444/wd/hub
+    Maximize Browser Window
+
+Login
+    [Arguments]                       ${username}    ${password}
+    Input Text                        name=login    ${username}
+    Input Text                        name=password    ${password}
+    Click Element                     css=body > div:nth-child(2) > div > div:nth-child(3) > div > div > div > div > form > button
+
+Login Should Be Successful
+    Wait Until Element Is Visible     id=appnav
+
+Login Should Fail
+    Wait Until Element Is Visible     css=body > div.generic-modal.modal.show > div > div > div.modal-footer > button    timeout=2
+
+Go To My Profile
+    Click Element                     id=appnav
+    Click Element                     css=#header_menu > a:nth-child(11) > li > span
+
+Change Password
+    [Arguments]                       ${password}    ${new_password}
+    Input Text                        name=oldPassword    ${password}
+    Input Text                        name=password    ${new_password}
+    Input Text                        name=password-confirm    ${new_password}
+    Click Element                     css=#main > div > div > div:nth-child(2) > div > div > div:nth-child(2) > div > form > button
+    Wait Until Element Is Visible     xpath=/html/body/div[3]/div/div/div[2]/button
+    Click Element                     xpath=/html/body/div[3]/div/div/div[2]/button
+
+Logout
+    Click Element                     id=appnav
+    Click Element                     css=#header_menu > a:nth-child(13) > li > span
+    Wait Until Element Is Visible     name=login    timeout=10
+
+Go To Inbox And Write A New SMS
+    Click Element                     css=#main > div > div > div:nth-child(2) > div > div > div:nth-child(2) > a > div
+    Click Element                     id=btnActionDrop
+    Click Element                     css=#main > div > div > div > div:nth-child(4) > div.body > div.card-block > div > div:nth-child(1) > div.btn-group.btn-group-sm.group-filtre.show > div > button:nth-child(2)
+
+Enter Receiver Message and Send
+    [Arguments]                       ${receiver}   ${message}
+    Input Text                        css=#main > div > div > div > div:nth-child(5) > div > div:nth-child(1) > div:nth-child(3) > div > div > div > div.autocomplete.row.composer-autocomplete.col-md-11.col-12 > div.input-group.col-12 > div.autocomplete-input > input    ${receiver}
+    Input Text                        css=#main > div > div > div > div:nth-child(5) > div > div:nth-child(2) > div:nth-child(1) > div > textarea                                                                                                                             ${message}
+    Click Element                     css=#main > div > div > div > div:nth-child(5) > div > div.row.composer-row > div > div > button:nth-child(2)
+    Wait Until Element Is Visible     css=body > div.generic-modal.modal.show > div > div > div.modal-footer > button
+    Click Element                     css=body > div.generic-modal.modal.show > div > div > div.modal-footer > button
+    Close Browser
