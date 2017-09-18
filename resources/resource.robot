@@ -4,7 +4,7 @@ Resource    temp_id_rsrc.robot
 
 *** Keywords ***
 Open Easylience Login Page
-    Open Browser                      http://192.168.0.41    CHROME     # None    http://192.168.0.11:4444/wd/hub
+    Open Browser                      http://192.168.0.41    CHROME     None    http://192.168.0.11:4444/wd/hub
     Maximize Browser Window
 
 Login
