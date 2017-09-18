@@ -2,7 +2,7 @@ import subprocess
 import os
 
 def check_text_in_file(file_path, text):
-    with open(os.path.join("../../../../../", file_path), 'r') as file:
+    with open(os.path.join("/home/maxime/", file_path), 'r') as file:
         for line in file:
             if text in line:
                 return 0
@@ -10,4 +10,4 @@ def check_text_in_file(file_path, text):
     raise AssertionError('No matching text found')
 
 def clear_file(file_path):
-    subprocess.call("> %s" % os.path.join("../../../../../", file_path), shell=True)
+    subprocess.call("> %s" % os.path.join("/home/maxime/", file_path), shell=True)

@@ -1,5 +1,5 @@
 *** Settings ***
-Resource        ../resources/rsrc_gherkin.robot
+Resource        rsrc_gherkin.robot
 Test Setup      User Opens Easylience Login Page
 
 *** Variables ***

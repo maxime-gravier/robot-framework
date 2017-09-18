@@ -1,6 +1,6 @@
 *** Settings ***
 Library         MyLibrary
-Resource        ../resources/resource2.robot
+Resource        resource2.robot
 Suite Setup     Run Keywords      Open Easylience Login Page  AND  Login With Valid Credentials  ${USERNAME}  ${PASSWORD}
 Suite Teardown  Clear Log File    workspace/dev/backend-v2/${LOG_FILE_NAME}
 

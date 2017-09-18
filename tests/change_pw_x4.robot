@@ -1,5 +1,5 @@
 *** Settings ***
-Resource          ../resources/resource2.robot
+Resource          resource2.robot
 Suite Setup       Open Easylience Login Page
 Suite Teardown    Close Browser
 Test Template     Login And Change Password
