@@ -1,12 +1,6 @@
 import subprocess
 import os
 
-def hello(name):
-    print "Hello, %s !" % name
-
-def do_nothing():
-    pass
-
 def check_text_in_file(file_path, text):
     with open(os.path.join("../../../../../", file_path), 'r') as file:
         for line in file:

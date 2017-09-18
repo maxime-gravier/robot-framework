@@ -1,36 +1,62 @@
 *** Settings ***
 Library     Selenium2Library
-Library     BuiltIn
+Resource    temp_id_rsrc.robot
 
 *** Keywords ***
 Open Easylience Login Page
-    Open Browser                      http://192.168.0.41    CHROME    None    http://192.168.0.11:4444/wd/hub
+    Open Browser                      http://192.168.0.41    CHROME     # None    http://192.168.0.11:4444/wd/hub
     Maximize Browser Window
 
 Login
-    [Arguments]                       ${username}    ${password}
-    Input Text                        name=login    ${username}
+    [Documentation]     User attempts to log in with "login" and "password"
+    [Arguments]                       ${login}    ${password}
+    Set Temporary ID Submit
+    Input Text                        name=login    ${login}
     Input Text                        name=password    ${password}
-    Click Element                     css=body > div:nth-child(2) > div > div:nth-child(3) > div > div > div > div > form > button
+    Click Element                     submit_button
 
 Login Should Be Successful
     Wait Until Element Is Visible     id=appnav
 
+Click On Menu
+    Click Element                     id=appnav
+
+Click On My Profile
+    Set Temporary ID Profile
+    Click Element                     my_profile
+
+Change Password
+    [Arguments]                       ${password}
+    Input Text                        name=oldPassword    ${password}
+
+Give An Invalid New Password
+    [Arguments]                       ${new_password}
+    Set Temporary ID Save Changes
+    Input Text                        name=password    ${new_password}
+    Input Text                        name=password-confirm    ${new_password}
+    Click Element                     save_changes
+
+Error Message Should Be Displayed
+    Set Temporary ID Error Text
+    Wait Until Element Is Visible     error_text
+    Element Should Contain    error_text    Le mot de passe doit contenir au moins 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial (!@#$%^&*()_+-=[]{};':"\\|,.<>/?).
+
 Login Should Fail
     Wait Until Element Is Visible     css=body > div.generic-modal.modal.show > div > div > div.modal-footer > button    timeout=2
 
-Go To My Profile
-    Click Element                     id=appnav
-    Click Element                     css=#header_menu > a:nth-child(11) > li > span
-
-Change Password
+Successfully Change Password
     [Arguments]                       ${password}    ${new_password}
+    Set Temporary ID Save Changes
     Input Text                        name=oldPassword    ${password}
     Input Text                        name=password    ${new_password}
     Input Text                        name=password-confirm    ${new_password}
-    Click Element                     css=#main > div > div > div:nth-child(2) > div > div > div:nth-child(2) > div > form > button
+    Click Element                     save_changes
     Wait Until Element Is Visible     xpath=/html/body/div[3]/div/div/div[2]/button
     Click Element                     xpath=/html/body/div[3]/div/div/div[2]/button
+
+Go To My Profile
+    Click On Menu
+    Click On My Profile
 
 Logout
     Click Element                     id=appnav

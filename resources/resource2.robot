@@ -1,5 +1,5 @@
 *** Settings ***
-Resource          resource.txt
+Resource          resource.robot
 
 *** Keywords ***
 Login With Valid Credentials

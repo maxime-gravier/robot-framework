@@ -1,26 +1,23 @@
 *** Settings ***
-Documentation     Changes between the new password and the actual one four times (using test template).
+Resource          resource2.robot
 Suite Setup       Open Easylience Login Page
 Suite Teardown    Close Browser
-Force Tags        pw_change
 Test Template     Login And Change Password
-Library           Selenium2Library
-Resource          ../resources/resource2.txt
 
 *** Variables ***
-&{PASSWORDS}      password=Nan0cod&    new_password=N4nocod&
+&{PASSWORDS}      pw1=Nan0cod&    pw2=N4nocod&    pw3=Nanoc0d&    pw4=N4n0cod&
 
 *** Test Cases ***
 Multiple Password Changes
-    &{PASSWORDS}[password]        &{PASSWORDS}[new_password]
-    &{PASSWORDS}[new_password]    &{PASSWORDS}[password]
-    &{PASSWORDS}[password]        &{PASSWORDS}[new_password]
-    &{PASSWORDS}[new_password]    &{PASSWORDS}[password]
+    &{PASSWORDS}[pw1]    &{PASSWORDS}[pw2]
+    &{PASSWORDS}[pw2]    &{PASSWORDS}[pw3]
+    &{PASSWORDS}[pw3]    &{PASSWORDS}[pw4]
+    &{PASSWORDS}[pw4]    &{PASSWORDS}[pw1]
 
 *** Keywords ***
 Login And Change Password
-    [Arguments]                       ${password}                       ${new_password}
-    Login With Valid Credentials      maxime.gravier@easylience.com     ${password}
+    [Arguments]                       ${password}    ${new_password}
+    Login With Valid Credentials      david.meunier@easylience.com     ${password}
     Go To My Profile
-    Change Password                   ${password}                       ${new_password}
+    Successfully Change Password      ${password}    ${new_password}
     Logout
