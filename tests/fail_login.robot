@@ -1,5 +1,5 @@
 *** Settings ***
-Resource          resource.robot
+Resource          ../resources/resource.robot
 Suite Setup       Open Easylience Login Page
 Suite Teardown    Close Browser
 Test Teardown     Click Element    css=body > div.generic-modal.modal.show > div > div > div.modal-footer > button
