@@ -1,6 +1,6 @@
 *** Settings ***
 Library     Selenium2Library
-Resource    temp_id_rsrc.robot
+Resource    ../resources/temp_id_rsrc.robot
 
 *** Keywords ***
 Open Easylience Login Page
