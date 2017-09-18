@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Changes the password and then changes it back to the first one (using suite setup/teardown).
-Resource          resource2.robot
+Resource          ../resources/resource2.robot
 Suite Setup       Open Easylience Login Page
 Suite Teardown    Close Browser
 

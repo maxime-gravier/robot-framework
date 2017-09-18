@@ -1,5 +1,5 @@
 *** Settings ***
-Resource        resource.robot
+Resource        ../resources/resource.robot
 Test Setup      Open Easylience Login Page
 
 *** Variables ***
